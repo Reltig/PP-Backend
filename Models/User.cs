@@ -17,6 +17,13 @@ public class User
     
     [BsonElement("psw_hash")]
     public string Password { get; set; } = null!;
+    
+    [BsonElement("TestsList")]
+    public List<string> TestsIdList { get; set; } = new();
+
+    public void AddTest(string testId) => TestsIdList.Add(testId);
+
+    #region InDevelopment
 
     public static User CreateUser(string name, string password)
     {
@@ -27,4 +34,7 @@ public class User
         user.Id = ObjectId.GenerateNewId((user.Name + user.Password).ToCharArray().Sum(c => c)).ToString();
         return user;
     }
+
+    #endregion
+    
 }

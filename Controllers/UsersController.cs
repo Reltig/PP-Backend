@@ -70,4 +70,18 @@ public class UsersController : ControllerBase
 
         return NoContent();
     }
+    
+    [HttpPut]
+    [Route("/test/{testId}")]
+    public async Task<IActionResult> AddTestToUser([FromServices] TestService testService, string userId, string testId)
+    {
+        var user = await _userDbService.GetAsync(userId);
+        if (user is null)
+            return NotFound();
+
+        user.AddTest(testId);
+        await _userDbService.UpdateAsync(userId, user);
+
+        return Ok();
+    }
 }
