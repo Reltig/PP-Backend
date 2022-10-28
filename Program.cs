@@ -6,8 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<TestsStorageSettings>(
     builder.Configuration.GetSection("TestsStorageSettings"));
+builder.Services.Configure<UserStorageSettings>(
+    builder.Configuration.GetSection("UsersStorageSettings"));
 
 builder.Services.AddSingleton<TestService>();
+builder.Services.AddSingleton<UsersDataBaseService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

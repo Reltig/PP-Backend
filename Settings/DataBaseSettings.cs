@@ -1,6 +1,6 @@
 ﻿namespace PPBackend.Settings;
 
-public class TestsStorageSettings
+public class DataBaseSettings
 {
     public string ConnectionString { get; set; } = null!;
 
@@ -8,3 +8,6 @@ public class TestsStorageSettings
 
     public string BooksCollectionName { get; set; } = null!;
 }
+
+public class TestsStorageSettings : DataBaseSettings{}
+public class UserStorageSettings : DataBaseSettings{}
