@@ -18,11 +18,17 @@ public class User
     [BsonElement("psw_hash")]
     public string Password { get; set; } = null!;
     
-    [BsonElement("TestsList")]
-    public List<string> TestsIdList { get; set; } = new();
+    [BsonElement("avaible_tests_list")]
+    public List<string> AvaibleTestsIdList { get; set; } = new();
+    
+    [BsonElement("complited_tests")]
+    public Dictionary<string, float> ComplitedTests { get; set; } = new();
 
-    public void AddTest(string testId) => TestsIdList.Add(testId);
+    public void AddTest(string testId) => AvaibleTestsIdList.Add(testId);
 
+    public void CompleteTest(string testId, float rating) =>
+        ComplitedTests.Add(testId, rating); //TODO: функцию обновления результата на лучший
+    
     #region InDevelopment
 
     public static User CreateUser(string name, string password)
@@ -36,5 +42,4 @@ public class User
     }
 
     #endregion
-    
 }

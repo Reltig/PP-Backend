@@ -84,4 +84,32 @@ public class UsersController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpPost("evaluate")]
+    public async Task<ActionResult> CompleteTest(
+        [FromServices] TestService testsService,
+        string userId, 
+        string testId, 
+        [FromBody] List<string> answers)
+    {
+        var test = await testsService.GetAsync(testId);
+
+        if (test is null)
+        {
+            return NotFound();
+        }
+
+        var rating = await test.Evaluate(answers);
+
+        var user = await _userDbService.GetAsync(userId);
+        if (user is null)
+        {
+            return NotFound();
+        }
+        
+        user.CompleteTest(testId, rating);
+        await _userDbService.UpdateAsync(userId, user);
+
+        return NoContent();
+    }
 }
