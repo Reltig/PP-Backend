@@ -18,6 +18,8 @@ public class Test
 
     public List<string> GetAnswers() =>
         QuestionsList.Select(q => q.RightAnswer).ToList();
+    
+    public List<Question> GetQuestions() => QuestionsList;
 
     public async Task<float> Evaluate(List<string> answers) => //TODO: проверить
         await Task.Run(() => (float)answers.Intersect(GetAnswers()).ToList().Count / GetAnswers().Count);

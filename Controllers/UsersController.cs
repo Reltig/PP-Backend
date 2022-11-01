@@ -32,8 +32,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(User newUser)
+    public async Task<IActionResult> Post(UserRegistrationModel urm)
     {
+        var newUser = new User(urm);
         await _userDbService.CreateAsync(newUser);
         
         return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
@@ -71,9 +72,12 @@ public class UsersController : ControllerBase
         return NoContent();
     }
     
-    [HttpPut]
-    [Route("/test/{testId}")]
-    public async Task<IActionResult> AddTestToUser([FromServices] TestService testService, string userId, string testId)
+    [HttpPost]
+    [Route("/test/add-test/{testId}")]
+    public async Task<IActionResult> AddTestToUser(
+        [FromServices] TestService testService, 
+        [FromQuery] string userId, 
+        string testId)
     {
         var user = await _userDbService.GetAsync(userId);
         if (user is null)
@@ -85,12 +89,12 @@ public class UsersController : ControllerBase
         return Ok();
     }
     
-    [HttpPost("evaluate")]
+    [HttpPost("test/evaluate/{testId}")]
     public async Task<ActionResult> CompleteTest(
         [FromServices] TestService testsService,
-        string userId, 
-        string testId, 
-        [FromBody] List<string> answers)
+        [FromQuery] string userId,
+        [FromBody] List<string> answers,
+        string testId)
     {
         var test = await testsService.GetAsync(testId);
 

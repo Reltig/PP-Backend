@@ -69,4 +69,17 @@ public class TestController : ControllerBase
 
         return NoContent();
     }
+    
+    [HttpGet("questions/{id:length(24)}")]
+    public async Task<ActionResult<Test>> GetQuestions(string id)
+    {
+        var test = await _testsService.GetAsync(id);
+
+        if (test is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(test.GetQuestions());
+    }
 }
