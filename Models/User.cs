@@ -8,6 +8,20 @@ namespace PPBackend.Models;
 
 public class User
 {
+    public User(){}
+    public User(UserRegistrationModel urm)
+    {
+        Name = urm.Name;
+        Password = urm.Password;
+        Id = new ObjectId(
+                Convert.ToHexString(
+                SHA1.Create().ComputeHash(
+                        (Name+Password)
+                        .ToCharArray()
+                        .Select(c => (byte)c)
+                        .ToArray())))
+            .ToString();
+    }
     [BsonId]
     //[BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
@@ -42,4 +56,13 @@ public class User
     }
 
     #endregion
+}
+
+public class UserRegistrationModel
+{
+    [BsonElement("name")]
+    public string Name { get; set; } = null!;
+    
+    [BsonElement("psw_hash")]
+    public string Password { get; set; } = null!;
 }
