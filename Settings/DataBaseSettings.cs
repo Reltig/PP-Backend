@@ -11,3 +11,4 @@ public class DataBaseSettings
 
 public class TestsStorageSettings : DataBaseSettings{}
 public class UserStorageSettings : DataBaseSettings{}
+public class GroupsStorageSettings : DataBaseSettings{}
