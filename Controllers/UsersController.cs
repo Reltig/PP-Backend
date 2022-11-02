@@ -9,9 +9,9 @@ namespace PPBackend.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly UsersDataBaseService _userDbService;
+    private readonly UsersService _userDbService;
 
-    public UsersController(UsersDataBaseService userDbService) =>
+    public UsersController(UsersService userDbService) =>
         _userDbService = userDbService;
 
     [HttpGet]

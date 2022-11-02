@@ -60,9 +60,7 @@ public class User
 
 public class UserRegistrationModel
 {
-    [BsonElement("name")]
     public string Name { get; set; } = null!;
     
-    [BsonElement("psw_hash")]
     public string Password { get; set; } = null!;
 }

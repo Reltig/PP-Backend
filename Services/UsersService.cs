@@ -5,11 +5,11 @@ using PPBackend.Settings;
 
 namespace PPBackend.Services;
 
-public class UsersDataBaseService
+public class UsersService
 {
     private readonly IMongoCollection<User> _usersCollection;
 
-    public UsersDataBaseService(
+    public UsersService(
         IOptions<UserStorageSettings> userStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(
