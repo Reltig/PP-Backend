@@ -17,8 +17,8 @@ public class TestController : ControllerBase
     public async Task<List<Test>> Get() =>
         await _testsService.GetAsync();
     
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Test>> Get(string id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Test>> Get(int id)
     {
         var test = await _testsService.GetAsync(id);
 
@@ -38,8 +38,8 @@ public class TestController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
     }
 
-    [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Test updatedTest)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, Test updatedTest)
     {
         var test = await _testsService.GetAsync(id);
 
@@ -55,8 +55,8 @@ public class TestController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
         var test = await _testsService.GetAsync(id);
 
@@ -70,8 +70,8 @@ public class TestController : ControllerBase
         return NoContent();
     }
     
-    [HttpGet("questions/{id:length(24)}")]
-    public async Task<ActionResult<Test>> GetQuestions(string id)
+    [HttpGet("questions/{id}")]
+    public async Task<ActionResult<Test>> GetQuestions(int id)
     {
         var test = await _testsService.GetAsync(id);
 
