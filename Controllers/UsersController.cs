@@ -18,7 +18,7 @@ public class UsersController : ControllerBase
     public async Task<List<User>> Get() =>
         await _userDbService.GetAsync();
     
-    [HttpGet("{id:length(24)}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<User>> Get(int id)
     {
         var user = await _userDbService.GetAsync(id);
@@ -73,20 +73,18 @@ public class UsersController : ControllerBase
     }
     
     [HttpPost]
-    [Route("/test/add-test/{testId}")]
+    [Route("/add-test/{testId}/{userId}")]
     public async Task<IActionResult> AddTestToUser(
         [FromServices] TestService testService, 
-        [FromQuery] int userId, 
+        int userId, 
         int testId)
     {
-        var user = await _userDbService.GetAsync(userId);
-        if (user is null)
-            return NotFound();
+        var test = await testService.GetAsync(testId);
+        if (test is null)
+            return NotFound("Нет теста с таким id");
+        var result = await _userDbService.TryAddTestToUserAsync(userId, testId);
 
-        user.AddTest(testId);
-        await _userDbService.UpdateAsync(userId, user);
-
-        return Ok();
+        return result ? Ok() : NotFound("Нет пользователя с таким id");
     }
     
     [HttpPost("test/evaluate/{testId}")]

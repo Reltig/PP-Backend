@@ -20,7 +20,8 @@ public class Group : IDatabaseModel
     [BsonElement("tests")]
     public List<int> Tests { get; set; } = new();
 
-    public void AddMember(int userId) => Members.Add(userId);
+    public void AddMember(int groupId) => Members.Add(groupId);
+    public void RemoveMember(int groupId) => Members.Remove(groupId);
 }
 
 public class GroupRegistrationModel

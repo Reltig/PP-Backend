@@ -17,7 +17,7 @@ public class GroupController : ControllerBase
     public async Task<List<Group>> Get() =>
         await _groupService.GetAsync();
     
-    [HttpGet("{id:length(24)}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<Group>> Get(int id)
     {
         var group = await _groupService.GetAsync(id);
@@ -39,7 +39,7 @@ public class GroupController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = newGroup.Id }, newGroup);
     }
 
-    [HttpPut("{id:length(24)}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Group newGroup)
     {
         var group = await _groupService.GetAsync(id);
@@ -56,7 +56,7 @@ public class GroupController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:length(24)}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var group = await _groupService.GetAsync(id);
@@ -72,13 +72,27 @@ public class GroupController : ControllerBase
     }
     
     [HttpPost]
-    [Route("add/{groupId}/{userId}")]
+    [Route("{groupId}/{userId}")]
     public async Task<IActionResult> AddUserToGroup(
         UsersService usersService, 
         int groupId, 
         int userId)
     {
         var status = await _groupService.TryAddUserToGroupAsync(groupId, userId);
+        return status ? Ok() : NotFound("Неверный id");
+    }
+    
+    [HttpDelete]
+    [Route("{groupId}/{userId}")]
+    public async Task<IActionResult> DeleteUserFromGroup(
+        UsersService usersService, 
+        int groupId, 
+        int userId)
+    {
+        var user = await usersService.GetAsync(userId);
+        if (user is null)
+            return NotFound("Неверный id");
+        var status = await _groupService.TryDeleteUserFromGroupAsync(groupId, userId);
         return status ? Ok() : NotFound("Неверный id");
     }
 }

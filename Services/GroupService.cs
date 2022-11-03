@@ -18,4 +18,14 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
             group.AddMember(userId);
             return true;
         });
+    
+    public async Task<bool> TryDeleteUserFromGroupAsync(int groupId, int userId) =>
+        await Task.Run(async () =>
+        {
+            var group = await GetAsync(groupId);
+            if(group is null)
+                return false;
+            group.RemoveMember(userId);
+            return true;
+        });
 }
