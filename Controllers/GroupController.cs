@@ -18,7 +18,7 @@ public class GroupController : ControllerBase
         await _groupService.GetAsync();
     
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Group>> Get(string id)
+    public async Task<ActionResult<Group>> Get(int id)
     {
         var group = await _groupService.GetAsync(id);
 
@@ -40,7 +40,7 @@ public class GroupController : ControllerBase
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Group newGroup)
+    public async Task<IActionResult> Update(int id, Group newGroup)
     {
         var group = await _groupService.GetAsync(id);
 
@@ -57,7 +57,7 @@ public class GroupController : ControllerBase
     }
 
     [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(int id)
     {
         var group = await _groupService.GetAsync(id);
 
@@ -75,8 +75,8 @@ public class GroupController : ControllerBase
     [Route("add/{groupId}/{userId}")]
     public async Task<IActionResult> AddUserToGroup(
         UsersService usersService, 
-        string groupId, 
-        string userId)
+        int groupId, 
+        int userId)
     {
         var status = await _groupService.TryAddUserToGroupAsync(groupId, userId);
         return status ? Ok() : NotFound("Неверный id");

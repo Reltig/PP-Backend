@@ -19,7 +19,7 @@ public class UsersController : ControllerBase
         await _userDbService.GetAsync();
     
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<User>> Get(string id)
+    public async Task<ActionResult<User>> Get(int id)
     {
         var user = await _userDbService.GetAsync(id);
 
@@ -41,7 +41,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, User updatedUser)
+    public async Task<IActionResult> Update(int id, User updatedUser)
     {
         var user = await _userDbService.GetAsync(id);
 
@@ -58,7 +58,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(int id)
     {
         var user = await _userDbService.GetAsync(id);
 
@@ -76,8 +76,8 @@ public class UsersController : ControllerBase
     [Route("/test/add-test/{testId}")]
     public async Task<IActionResult> AddTestToUser(
         [FromServices] TestService testService, 
-        [FromQuery] string userId, 
-        string testId)
+        [FromQuery] int userId, 
+        int testId)
     {
         var user = await _userDbService.GetAsync(userId);
         if (user is null)
@@ -92,9 +92,9 @@ public class UsersController : ControllerBase
     [HttpPost("test/evaluate/{testId}")]
     public async Task<ActionResult> CompleteTest(
         [FromServices] TestService testsService,
-        [FromQuery] string userId,
+        [FromQuery] int userId,
         [FromBody] List<string> answers,
-        string testId)
+        int testId)
     {
         var test = await testsService.GetAsync(testId);
 

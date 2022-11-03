@@ -4,11 +4,10 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace PPBackend.Models;
 
-public class Test
+public class Test : IDatabaseModel
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public int Id { get; set; }
 
     [BsonElement("test_name")]
     public string TestName { get; set; } = null!;
