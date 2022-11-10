@@ -9,7 +9,7 @@ public class CRUDService<T, TStorageSettings>
     where T:IDatabaseModel
     where TStorageSettings:DataBaseSettings
 {
-    private readonly IMongoCollection<T> _collection;
+    protected readonly IMongoCollection<T> _collection;
 
     public CRUDService(
         IOptions<TStorageSettings> storeSettings)

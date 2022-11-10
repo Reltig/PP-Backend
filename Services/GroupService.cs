@@ -7,7 +7,12 @@ namespace PPBackend.Services;
 
 public class GroupService : CRUDService<Group, GroupsStorageSettings>
 {
-    public GroupService(IOptions<GroupsStorageSettings> storeSettings) : base(storeSettings) {}
+    private int globalId = 0;
+
+    public GroupService(IOptions<GroupsStorageSettings> storeSettings) : base(storeSettings)
+    {
+        globalId = new Random(new DateTime().Millisecond).Next(10000, 99999);
+    }
 
     public async Task<bool> TryAddUserToGroupAsync(int id, int userId) =>
         await Task.Run(async () =>
@@ -28,4 +33,9 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
             group.RemoveMember(userId);
             return true;
         });
+
+    public async Task CreateAsync(GroupRegistrationModel grm)
+    {
+        await CreateAsync(new Group(globalId, grm));
+    }
 }
