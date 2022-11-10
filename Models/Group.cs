@@ -4,9 +4,9 @@ namespace PPBackend.Models;
 
 public class Group : IDatabaseModel
 {
-    public Group(GroupRegistrationModel grm)
+    public Group(int id, GroupRegistrationModel grm)
     {
-        Id = grm.Id;
+        Id = id;
         Members = grm.Members;
         Tests = grm.Tests;
     }
@@ -26,8 +26,6 @@ public class Group : IDatabaseModel
 
 public class GroupRegistrationModel
 {
-    public int Id { get; set; }
-    
     public List<int> Members { get; set; } = new();
     
     public List<int> Tests { get; set; } = new();

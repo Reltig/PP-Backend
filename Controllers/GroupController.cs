@@ -33,10 +33,9 @@ public class GroupController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(GroupRegistrationModel grm)
     {
-        var newGroup = new Group(grm);
-        await _groupService.CreateAsync(newGroup);
+        await _groupService.CreateAsync(grm);
 
-        return CreatedAtAction(nameof(Get), new { id = newGroup.Id }, newGroup);
+        return CreatedAtAction(nameof(Get), grm);//TODO: переделать по аналогии с другими контроллерами
     }
 
     [HttpPut("{id}")]
