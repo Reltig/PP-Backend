@@ -114,4 +114,11 @@ public class UsersController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet]
+    [Route("auth")]
+    public async Task<ActionResult> Authentication([FromQuery] string name, [FromQuery] string password)
+    {
+        return Ok(_userDbService.GetIdAsync(name, password).Result);
+    }
 }

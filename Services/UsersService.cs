@@ -18,4 +18,10 @@ public class UsersService: CRUDService<User, UserStorageSettings>
             user.AddTest(testId);
             return true;
         });
+
+    public async Task<int> GetIdAsync(string name, string password)
+    {
+        var user = await _collection.Find(user => user.Name == name && user.Password == password).FirstOrDefaultAsync();
+        return user.Id;
+    }
 }
