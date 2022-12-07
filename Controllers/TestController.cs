@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PPBackend.Models;
 using PPBackend.Services;
 
@@ -81,5 +82,14 @@ public class TestController : ControllerBase
         }
 
         return Ok(test.GetQuestions());
+    }
+    [Authorize]
+    [HttpGet("questions/")]
+    public async Task<ActionResult> GetAwalableTests(UsersService service)
+    {
+        var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
+        var user = service.GetAsync(id).Result;
+        var tests = user?.AvaibleTestsIdList;
+        return Ok(tests);
     }
 }

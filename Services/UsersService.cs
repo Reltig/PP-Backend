@@ -24,4 +24,9 @@ public class UsersService: CRUDService<User, UserStorageSettings>
         var user = await _collection.Find(user => user.Name == name && user.Password == password).FirstOrDefaultAsync();
         return user.Id;
     }
+    public async Task<User> GetUserAsync(string name, string password)
+    {
+        var user = await _collection.Find(user => user.Name == name && user.Password == password).FirstOrDefaultAsync();
+        return user;
+    }
 }
