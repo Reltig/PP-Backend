@@ -20,6 +20,6 @@ public class Test : IDatabaseModel
     
     public List<Question> GetQuestions() => QuestionsList;
 
-    public async Task<float> Evaluate(List<string> answers) => //TODO: проверить
+    public async Task<float> Evaluate(List<string> answers) => 
         await Task.Run(() => (float)answers.Intersect(GetAnswers()).ToList().Count / GetAnswers().Count);
 }

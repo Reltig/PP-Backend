@@ -81,7 +81,7 @@ public class TestController : ControllerBase
             return NotFound();
         }
 
-        return Ok(test.GetQuestions());
+        return Ok(test.GetQuestions()); //TODO: переделать в _testService.Getquestions()
     }
     [Authorize]
     [HttpGet("questions/")]
