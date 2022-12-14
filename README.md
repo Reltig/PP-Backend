@@ -3,6 +3,7 @@
 |---------------------------------------------------|-----------------------------------------|--------------------------|------------------|
 | `POST /api/Users`                                 | Создание нового пользователя            | `UserRegistrationModel`  | Нет              |
 | `GET /api/Users/{id}`                             | Получение пользователя по id            | Нет                      | `User`           |
+| `POST /api/Users/add/{group_id}`                  | Добавление  пользователя в группу       | `Token`                  | Нет              |
 | `GET /api/Users/auth?name=name&password=password` | Получение id пользователя по имени и id | Нет                      | id пользователя  |
 | `POST /api/Users/add-test/{testId}/{userId}`      | Добавить пользователю тест              | Нет                      | Нет              |
 | `POST /api/Test`                                  | Создание нового теста                   | `TestRegistrationModel`  | Нет              |
@@ -10,7 +11,6 @@
 | `GET /api/Test/questions/{id}`                    | Получение вопросов теста по id          | Нет                      | `List<Question>` |
 | `POST /api/Group`                                 | Создание новой группы                   | `GroupRegistrationModel` | Нет              |
 | `GET /api/Group/{id}`                             | Получение группы по id                  | Нет                      | `Group`          |
-| `POST /api/Group/{groupId}/{userId}`              | Добавление  пользователя  группу        | Нет                      | Нет              |
 | `DELETE /api/Group/{groupId}/{userId}`            | Удаление пользователя из группы         | Нет                      | Нет              |
 
 # `User`

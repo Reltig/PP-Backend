@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using PPBackend.Models;
 using PPBackend.Services;
@@ -120,5 +121,15 @@ public class UsersController : ControllerBase
     public async Task<ActionResult> Authentication([FromQuery] string name, [FromQuery] string password)
     {
         return Ok(_userDbService.GetIdAsync(name, password).Result);
+    }
+    
+    [Authorize]
+    [HttpPost]
+    [Route("add/{groupId}")]
+    public async Task<ActionResult> AddToGroup([FromQuery] int groupId, [FromServices] GroupService groupService)
+    {
+        var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
+        var ok = await groupService.TryAddUserToGroupAsync(groupId, id);
+        return ok ? Ok() : BadRequest();
     }
 }

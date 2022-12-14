@@ -35,7 +35,7 @@ public class GroupController : ControllerBase
     {
         await _groupService.CreateAsync(grm);
 
-        return CreatedAtAction(nameof(Get), grm);//TODO: переделать по аналогии с другими контроллерами
+        return CreatedAtAction(nameof(Get), grm);
     }
 
     [HttpPut("{id}")]

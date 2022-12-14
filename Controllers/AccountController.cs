@@ -13,7 +13,7 @@ namespace PPBackend.Controllers
 
 
         [HttpPost("/token")]
-        public IActionResult Token(string username, string password, UsersService service)
+        public IActionResult Token(string username, string password, [FromServices]UsersService service)
         {
             
             var identity = GetIdentity(username, password, service);

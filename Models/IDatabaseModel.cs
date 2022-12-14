@@ -2,7 +2,7 @@
 
 namespace PPBackend.Models;
 
-public interface IDatabaseModel//TODO: сделать дженериком
+public interface IDatabaseModel
 {
     [BsonId]
     public int Id { get; set; }
