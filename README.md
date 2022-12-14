@@ -4,7 +4,7 @@
 | `POST /api/Users`                                 | Создание нового пользователя            | `UserRegistrationModel`  | Нет              |
 | `GET /api/Users/{id}`                             | Получение пользователя по id            | Нет                      | `User`           |
 | `POST /api/Users/add/{group_id}`                  | Добавление  пользователя в группу       | `Token`                  | Нет              |
-| `POST /api/Users/test/evaluate/{testId}`          | Оценка теста                            | `Token`                  | Нет              |
+| `POST /api/Users/test/evaluate/{testId}`          | Оценка теста                            | `Token`, `List<string>`  | Нет              |
 | `GET /api/Users/auth?name=name&password=password` | Получение id пользователя по имени и id | Нет                      | id пользователя  |
 | `POST /api/Users/add-test/{testId}/{userId}`      | Добавить пользователю тест              | Нет                      | Нет              |
 | `POST /api/Test`                                  | Создание нового теста                   | `TestRegistrationModel`  | Нет              |
