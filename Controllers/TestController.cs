@@ -87,8 +87,10 @@ public class TestController : ControllerBase
     [HttpGet("questions/")]
     public async Task<ActionResult> GetAwalableTests(UsersService service)
     {
-        var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
-        var user = service.GetAsync(id).Result;
+        var id = User.FindAll("ID").FirstOrDefault()?.Value;
+        if (id == null)
+            return NotFound("Invalid token");
+        var user = service.GetAsync(int.Parse(id)).Result;
         var tests = user?.AvaibleTestsIdList;
         return Ok(tests);
     }
