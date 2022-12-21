@@ -7,13 +7,15 @@ using PPBackend.Services;
 
 namespace PPBackend.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : Controller
     {
         // тестовые данные вместо использования базы данных
 
 
-        [HttpPost("/token")]
-        public IActionResult Token(string username, string password, [FromServices]UsersService service)
+        [HttpPost()]
+        public IActionResult Token([FromQuery]string username, [FromQuery]string password, [FromServices]UsersService service)
         {
             
             var identity = GetIdentity(username, password, service);
