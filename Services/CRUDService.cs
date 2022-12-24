@@ -41,4 +41,13 @@ public class CRUDService<T, TStorageSettings>
 
     public async Task RemoveAsync(int id) =>
         await _collection.DeleteOneAsync(x => x.Id == id);
+
+    public async Task<bool> Exist(int id) =>
+        await Task.Run(async () =>
+            {
+                var res = await GetAsync(id);
+                return res is not null;
+            }
+        );
+
 }

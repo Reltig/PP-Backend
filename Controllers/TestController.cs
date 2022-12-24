@@ -14,65 +14,73 @@ public class TestController : ControllerBase
     public TestController(TestService testsService) =>
         _testsService = testsService;
 
-    [HttpGet]
-    public async Task<List<Test>> Get() =>
-        await _testsService.GetAsync();
-    
+    // [HttpGet]
+    // public async Task<List<Test>> Get() =>
+    //     await _testsService.GetAsync();
+    //
     [HttpGet("{id}")]
     public async Task<ActionResult<Test>> Get(int id)
     {
         var test = await _testsService.GetAsync(id);
-
+    
         if (test is null)
         {
             return NotFound();
         }
-
+    
         return test;
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Post(Test newBook)
+    //
+    // [HttpPost]
+    // public async Task<IActionResult> Post(Test newBook)
+    // {
+    //     await _testsService.CreateAsync(newBook);
+    //
+    //     return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
+    // }
+    //
+    // [HttpPut("{id}")]
+    // public async Task<IActionResult> Update(int id, Test updatedTest)
+    // {
+    //     var test = await _testsService.GetAsync(id);
+    //
+    //     if (test is null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     updatedTest.Id = test.Id;
+    //
+    //     await _testsService.UpdateAsync(id, updatedTest);
+    //
+    //     return NoContent();
+    // }
+    //
+    // [HttpDelete("{id}")]
+    // public async Task<IActionResult> Delete(int id)
+    // {
+    //     var test = await _testsService.GetAsync(id);
+    //
+    //     if (test is null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     await _testsService.RemoveAsync(id);
+    //
+    //     return NoContent();
+    // }
+    
+    [HttpPost()]
+    public async Task<IActionResult> CreateTest(Test test)
     {
-        await _testsService.CreateAsync(newBook);
-
-        return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Test updatedTest)
-    {
-        var test = await _testsService.GetAsync(id);
-
-        if (test is null)
-        {
-            return NotFound();
-        }
-
-        updatedTest.Id = test.Id;
-
-        await _testsService.UpdateAsync(id, updatedTest);
-
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        var test = await _testsService.GetAsync(id);
-
-        if (test is null)
-        {
-            return NotFound();
-        }
-
-        await _testsService.RemoveAsync(id);
-
-        return NoContent();
+        await _testsService.CreateAsync(test);
+    
+        return CreatedAtAction(nameof(CreateTest), test);
     }
     
-    [HttpGet("questions/{id}")]
-    public async Task<ActionResult<Test>> GetQuestions(int id)
+    [HttpGet("{id}/questions")]
+    public async Task<ActionResult<Test>> GetQuestions([FromQuery]int id)
     {
         var test = await _testsService.GetAsync(id);
 
@@ -82,16 +90,5 @@ public class TestController : ControllerBase
         }
 
         return Ok(test.GetQuestions()); //TODO: переделать в _testService.Getquestions()
-    }
-    [Authorize]
-    [HttpGet("questions/")]
-    public async Task<ActionResult> GetAwalableTests(UsersService service)
-    {
-        var id = User.FindAll("ID").FirstOrDefault()?.Value;
-        if (id == null)
-            return NotFound("Invalid token");
-        var user = service.GetAsync(int.Parse(id)).Result;
-        var tests = user?.AvaibleTestsIdList;
-        return Ok(tests);
     }
 }

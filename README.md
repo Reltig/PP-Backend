@@ -1,20 +1,25 @@
 # PP-Backend
-| **API**                                           | **Описание**                            | **Текст запроса**        | **Текст ответа** |
-|---------------------------------------------------|-----------------------------------------|--------------------------|------------------|
-| `GET /api/Account/token?username=admin&password=admin` | Получение токена                        | Нет                      | `Token`          |
-| `POST /api/Users`                                 | Создание нового пользователя            | `UserRegistrationModel`  | Нет              |
-| `GET /api/Users/{id}`                             | Получение пользователя по id            | Нет                      | `User`           |
-| `POST /api/Users/add/{group_id}`                  | Добавление  пользователя в группу       | `Token`                  | Нет              |
-| `POST /api/Users/test/evaluate/{testId}`          | Оценка теста                            | `Token`, `List<string>`  | Нет              |
-| `POST /api/Users/add-test/{testId}/{userId}`      | Добавить пользователю тест              | Нет                      | Нет              |
-| `POST /api/Test`                                  | Создание нового теста                   | `TestRegistrationModel`  | Нет              |
-| `GET /api/Test/{id}`                              | Получение теста по id                   | Нет                      | `Test`           |
-| `GET /api/Test/questions/{id}`                    | Получение вопросов теста по id          | Нет                      | `List<Question>` |
-| `POST /api/Group`                                 | Создание новой группы                   | `GroupRegistrationModel` | Нет              |
-| `GET /api/Group/{id}`                             | Получение группы по id                  | Нет                      | `Group`          |
-| `DELETE /api/Group/{groupId}/{userId}`            | Удаление пользователя из группы         | Нет                      | Нет              |
+| **API**                                                | **Описание**                         | **Текст запроса**        | **Текст ответа** |
+|--------------------------------------------------------|--------------------------------------|--------------------------|------------------|
+| `GET /api/Account/token?username=admin&password=admin` | Получение токена                     | Нет                      | `Token`          |
+| `POST /api/Account/join_group/{groupId}`               | Добавление  пользователя в группу    | `Token`                  | Нет              |
+| `DELETE /api/Account/leave_group/{groupId}`            | Удаление пользователя из группы      | `Token`                  | Нет              |
+| `GET /api/Account/get_groups`                          | Получение id всех групп пользователя | `Token`                  | `List<int>`      |
+| `POST /api/Account/complete_test/{testId}`             | Завершить тест с testId              | `Token`                  | Нет              |
+| `POST /api/Account/add_test/{testId}`                  | Добавить пользователю тест           | `Token`                  | Нет              |
+| `DELETE /api/Account/delete_test/{testId}`             | Удалить тест у  пользователя         | `Token`                  | Нет              |
+| `POST /api/Test`                                       | Создание нового теста                | `TestRegistrationModel`  | Нет              |
+| `GET /api/Test/{id}`                                   | Получение теста по id                | Нет                      | `Test`           |
+| `GET /api/Test/questions/{id}`                         | Получение вопросов теста по id       | Нет                      | `List<Question>` |
+| `POST /api/Group`                                      | Создание новой группы                | `GroupRegistrationModel` | Нет              |
+| `GET /api/Group/{id}`                                  | Получение группы по id               | Нет                      | `Group`          |
+
 
 # `Token`
+В местах где требуется токен нужно добавить запросу новый заголовок(header)
+```json
+"Authorization" : "Bearer " + Token
+```
 
 # `User`
 ```json

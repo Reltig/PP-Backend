@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using PPBackend.Settings;
 using PPBackend.Services;
@@ -23,21 +24,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = true,
             // строка, представляющая издателя
             ValidIssuer = TokenService.AuthOptions.ISSUER,
- 
+            
             // будет ли валидироваться потребитель токена
             ValidateAudience = true,
             // установка потребителя токена
             ValidAudience = TokenService.AuthOptions.AUDIENCE,
             // будет ли валидироваться время существования
             ValidateLifetime = true,
- 
+            
             // установка ключа безопасности
             IssuerSigningKey = TokenService.AuthOptions.GetSymmetricSecurityKey(),
             // валидация ключа безопасности
             ValidateIssuerSigningKey = true,
         };
     });
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<TestService>();
 builder.Services.AddSingleton<UsersService>();
@@ -60,6 +61,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -14,13 +14,14 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
         globalId = new Random(new DateTime().Millisecond).Next(10000, 99999);
     }
 
-    public async Task<bool> TryAddUserToGroupAsync(int id, int userId) =>
+    public async Task<bool> TryAddUserToGroupAsync(int groupId, int userId) =>
         await Task.Run(async () =>
         {
-            var group = await GetAsync(id);
+            var group = await GetAsync(groupId);
             if(group is null)
                 return false;
             group.AddMember(userId);
+            await UpdateAsync(groupId, group);
             return true;
         });
     
@@ -31,6 +32,7 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
             if(group is null)
                 return false;
             group.RemoveMember(userId);
+            await UpdateAsync(groupId, group);
             return true;
         });
 
