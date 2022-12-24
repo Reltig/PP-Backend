@@ -24,6 +24,9 @@ public class User:IDatabaseModel
     [BsonElement("psw_hash")]
     public string Password { get; set; } = null!;
     
+    [BsonElement("groups")]
+    public List<string> Groups { get; set; } = new();
+    
     [BsonElement("avaible_tests_list")]
     public List<int> AvaibleTestsIdList { get; set; } = new();
     
@@ -34,6 +37,11 @@ public class User:IDatabaseModel
 
     public void CompleteTest(int testId, float rating) =>
         ComplitedTests.Add(testId, rating); //TODO: функцию обновления результата на лучший
+
+    public void DeleteTest(int testId)
+    {
+        AvaibleTestsIdList.Remove(testId);
+    }
 }
 
 public class UserRegistrationModel
