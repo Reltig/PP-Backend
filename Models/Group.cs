@@ -22,6 +22,10 @@ public class Group : IDatabaseModel
 
     public void AddMember(int groupId) => Members.Add(groupId);
     public void RemoveMember(int groupId) => Members.Remove(groupId);
+
+    public void AddTest(int testId) => Tests.Add(testId);
+
+    public void DeleteTest(int testId) => Tests.Remove(testId);
 }
 
 public class GroupRegistrationModel

@@ -40,4 +40,26 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
     {
         await CreateAsync(new Group(globalId, grm));
     }
+
+    public async Task<bool> TryAddTest(int testId) =>
+        await Task.Run(async () =>
+        {
+            var test = await GetAsync(testId);
+            if (test is null)
+                return false;
+            test.AddTest(testId);
+            await UpdateAsync(testId, test);
+            return true;
+        });
+    
+    public async Task<bool> TryDeleteTest(int testId) =>
+        await Task.Run(async () =>
+        {
+            var test = await GetAsync(testId);
+            if (test is null)
+                return false;
+            test.DeleteTest(testId);
+            await UpdateAsync(testId, test);
+            return true;
+        });
 }
