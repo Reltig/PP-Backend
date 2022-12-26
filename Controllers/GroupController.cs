@@ -103,18 +103,18 @@ public class GroupController : ControllerBase
         return CreatedAtAction(nameof(CreateGroup), grm);
     }
     
-    [HttpPost("add_test/{testId}")]
-    public async Task<IActionResult> AddTest(int testId)
+    [HttpPost("add_test/{groupId}/{testId}")]
+    public async Task<IActionResult> AddTest(int groupId,int testId)
     {
-        var result = await _groupService.TryAddTest(testId);
+        var result = await _groupService.TryAddTest(groupId,testId);
         
         return result ? Ok() : BadRequest();
     }
     
-    [HttpDelete("delete_test/{testId}")]
-    public async Task<IActionResult> DeleteTest(int testId)
+    [HttpDelete("delete_test/{groupId}/{testId}")]
+    public async Task<IActionResult> DeleteTest(int groupId,int testId)
     {
-        var result = await _groupService.TryDeleteTest(testId);
+        var result = await _groupService.TryDeleteTest(groupId, testId);
         
         return result ? Ok() : BadRequest();
     }
