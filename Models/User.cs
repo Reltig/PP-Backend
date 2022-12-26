@@ -25,7 +25,7 @@ public class User:IDatabaseModel
     public string Password { get; set; } = null!;
     
     [BsonElement("groups")]
-    public List<string> Groups { get; set; } = new();
+    public List<int> Groups { get; set; } = new();
     
     [BsonElement("avaible_tests_list")]
     public List<int> AvaibleTestsIdList { get; set; } = new();
@@ -36,12 +36,15 @@ public class User:IDatabaseModel
     public void AddTest(int testId) => AvaibleTestsIdList.Add(testId);
 
     public void CompleteTest(int testId, float rating) =>
-        ComplitedTests.Add(testId, rating); //TODO: функцию обновления результата на лучший
+        ComplitedTests.Add(testId, rating);
 
     public void DeleteTest(int testId)
     {
         AvaibleTestsIdList.Remove(testId);
     }
+
+    public void AddToGroup(int groupId) => Groups.Add(groupId);
+    public void DeleteFromGroup(int groupId) => Groups.Remove(groupId);
 }
 
 public class UserRegistrationModel

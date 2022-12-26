@@ -30,7 +30,7 @@ public class UsersService: CRUDService<User, UserStorageSettings>
         return user;
     }
     
-    public async Task<List<string>> GetUserGroups(int id)
+    public async Task<List<int>> GetUserGroups(int id)
     {
         var user = await GetAsync(id);
         if (user is null)
@@ -46,6 +46,17 @@ public class UsersService: CRUDService<User, UserStorageSettings>
                 return false;
             user.DeleteTest(testId);
             await UpdateAsync(userId, user);
+            return true;
+        });
+
+    public async Task<bool> TryAddGroupToUserAsync(int id, int groupId) =>
+        await Task.Run(async () =>
+        {
+            var user = await GetAsync(id);
+            if(user is null)
+                return false;
+            user.AddToGroup(groupId);
+            await UpdateAsync(id, user);
             return true;
         });
 }

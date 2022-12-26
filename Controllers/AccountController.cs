@@ -50,10 +50,11 @@ namespace PPBackend.Controllers
         [HttpPost]
         [Route("join_group/{groupId}")]
         [Authorize]
-        public async Task<ActionResult> AddToGroup(int groupId, [FromServices] GroupService groupService)
+        public async Task<ActionResult> AddToGroup(int groupId, [FromServices] GroupService groupService, [FromServices] UsersService usersService)
         {
             var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
-            var ok = await groupService.TryAddUserToGroupAsync(groupId, id);
+            var ok = await groupService.TryAddUserToGroupAsync(groupId, id) 
+                     && await usersService.TryAddGroupToUserAsync(id, groupId);
             return ok ? Ok() : BadRequest();
         }
         
@@ -83,7 +84,7 @@ namespace PPBackend.Controllers
         {
             var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
             var result = await usersService.GetUserGroups(id);
-            return result.Count > 0 ? Ok(result) : BadRequest();
+            return result.Count > 0 ? Json(result) : BadRequest();
         }
         
         [Authorize]
