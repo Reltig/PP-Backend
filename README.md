@@ -14,8 +14,8 @@
 | `GET /api/Test/questions/{id}`                         | Получение вопросов теста по id       | Нет                       | `List<Question>` |
 | `POST /api/Group`                                      | Создание новой группы                | `GroupRegistrationModel`  | Нет              |
 | `GET /api/Group/{id}`                                  | Получение группы по id               | Нет                       | `Group`          |
-| `POST /api/Group/add_test/{testId}`                    | Добавить группе тест                 | Нет                       | Нет              |
-| `DELETE /api/Group/delete_test/{testId}`               | Удалить тест у группы                | Нет                       | Нет              |
+| `POST /api/Group/add_test/{groupId}/{testId}`          | Добавить группе тест                 | Нет                       | Нет              |
+| `DELETE /api/Group/delete_test/{groupId}/{testId}`     | Удалить тест у группы                | Нет                       | Нет              |
 
 
 # `Token`
