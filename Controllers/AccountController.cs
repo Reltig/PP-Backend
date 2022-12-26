@@ -57,6 +57,15 @@ namespace PPBackend.Controllers
             return ok ? Ok() : BadRequest();
         }
         
+        [HttpPost]
+        [Route("new")]
+        public async Task<ActionResult> CreateUser([FromBody] UserRegistrationModel urm, [FromServices] UsersService service)
+        {
+            var user = new User(urm);
+            await service.CreateAsync(user);
+            return Ok();
+        }
+        
         [HttpDelete]
         [Route("leave_group/{groupId}")]
         [Authorize]
