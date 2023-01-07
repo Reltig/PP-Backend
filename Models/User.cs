@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 using MongoDB.Driver.Core.Operations;
 using PPBackend.Settings;
 
@@ -31,12 +32,17 @@ public class User:IDatabaseModel
     public List<int> AvaibleTestsIdList { get; set; } = new();
     
     [BsonElement("complited_tests")]
+    [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
     public Dictionary<int, float> ComplitedTests { get; set; } = new();
 
     public void AddTest(int testId) => AvaibleTestsIdList.Add(testId);
 
-    public void CompleteTest(int testId, float rating) =>
-        ComplitedTests.Add(testId, rating);
+    public void CompleteTest(int testId, float rating){
+        if(!ComplitedTests.ContainsKey(testId))
+            ComplitedTests.Add(testId, rating);
+        if (rating > ComplitedTests[testId])
+            ComplitedTests[testId] = rating;
+    }
 
     public void DeleteTest(int testId)
     {

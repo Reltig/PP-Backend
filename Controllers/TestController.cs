@@ -80,7 +80,7 @@ public class TestController : ControllerBase
     }
     
     [HttpGet("{id}/questions")]
-    public async Task<ActionResult<Test>> GetQuestions([FromQuery]int id)
+    public async Task<ActionResult<Test>> GetQuestions(int id)
     {
         var test = await _testsService.GetAsync(id);
 
