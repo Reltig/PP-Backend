@@ -87,6 +87,23 @@ namespace PPBackend.Controllers
             return result.Count > 0 ? Json(result) : BadRequest();
         }
         
+        [HttpGet]
+        [Route("info")]
+        [Authorize]
+        public async Task<ActionResult> GetInfo([FromServices] UsersService usersService)
+        {
+            var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
+            var user = await usersService.GetAsync(id);
+            if (user is null)
+                return NotFound();
+            return Json(new
+            {
+                Name = user.Name,
+                Groups = user.Groups,
+                ComplitedTests = user.ComplitedTests
+            });
+        }
+        
         [Authorize]
         [HttpPost("complete_test/{testId}")]
         public async Task<ActionResult> CompleteTest(

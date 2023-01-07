@@ -72,11 +72,11 @@ public class TestController : ControllerBase
     // }
     
     [HttpPost()]
-    public async Task<IActionResult> CreateTest(Test test)
+    public async Task<IActionResult> CreateTest(TestRegistrationModel trm)
     {
-        await _testsService.CreateAsync(test);
+        await _testsService.CreateAsync(new Test(trm));
     
-        return CreatedAtAction(nameof(CreateTest), test);
+        return CreatedAtAction(nameof(CreateTest), trm);
     }
     
     [HttpGet("{id}/questions")]

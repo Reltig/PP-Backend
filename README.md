@@ -3,6 +3,7 @@
 |--------------------------------------------------------|--------------------------------------|--------------------------|------------------|
 | `GET /api/Account/token?username=admin&password=admin` | Получение токена                     | Нет                      | `Token`          |
 | `POST /api/Account/new`                                | Создание пользователя                | `UserRegistrationModel`  | Нет              |
+| `GET /api/Account/info`                                | Получение информации о пользователе  | `Token`                  | `UserInfo`       |
 | `POST /api/Account/join_group/{groupId}`               | Добавление  пользователя в группу    | `Token`                  | Нет              |
 | `DELETE /api/Account/leave_group/{groupId}`            | Удаление пользователя из группы      | `Token`                  | Нет              |
 | `GET /api/Account/get_groups`                          | Получение id всех групп пользователя | `Token`                  | `List<int>`      |
@@ -48,6 +49,19 @@
 {
   "name": "username",
   "password": "userpassword"
+}
+```
+
+# `UserInfo`
+```json
+{
+  "name": "admin",
+  "groups": [
+    11111
+  ],
+  "complitedTests": {
+    "testId": 0.5
+  }
 }
 ```
 
