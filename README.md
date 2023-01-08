@@ -101,7 +101,23 @@
 ]
 ```
 
-# `Group, GroupRegistrationModel`
+# `Group`
+```json
+{
+  "id": 111,
+  "name": "groupName",
+  "members" : [
+    "firstMemberId",
+    "secondMemberId"
+  ],
+  "tests": [
+    "firstTestId",
+    "secondTestId"
+  ]
+}
+```
+
+# `GroupRegistrationModel`
 ```json
 {
   "name": "groupName",
