@@ -63,7 +63,8 @@
   ],
   "complitedTests": {
     "testId": 0.5
-  }
+  },
+  "role":"Teacher/Student"
 }
 ```
 
