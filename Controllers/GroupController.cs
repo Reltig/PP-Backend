@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PPBackend.Models;
 using PPBackend.Services;
 
@@ -95,12 +96,14 @@ public class GroupController : ControllerBase
     //     return status ? Ok() : NotFound("Неверный id");
     // }
     
+    [Authorize(Roles = "Teacher")]
     [HttpPost]
-    public async Task<IActionResult> CreateGroup(GroupRegistrationModel grm)
+    public async Task<IActionResult> CreateGroup(GroupRegistrationModel grm, [FromServices] UsersService usersService)
     {
-        await _groupService.CreateAsync(grm);
-    
-        return CreatedAtAction(nameof(CreateGroup), grm);
+        var groupId = await _groupService.CreateAsync(grm);
+        var userId = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
+        await usersService.AddManagedGroup(userId, groupId);
+        return CreatedAtAction(nameof(CreateGroup), groupId);
     }
     
     [HttpPost("add_test/{groupId}/{testId}")]

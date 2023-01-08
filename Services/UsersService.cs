@@ -59,4 +59,12 @@ public class UsersService: CRUDService<User, UserStorageSettings>
             await UpdateAsync(id, user);
             return true;
         });
+
+    public async Task AddManagedGroup(int userId, int groupId) =>
+        await Task.Run(async () =>
+        {
+            var user = await GetAsync(userId);
+            user.AddManagedGroups(groupId);
+            await UpdateAsync(userId, user);
+        });
 }

@@ -1,22 +1,22 @@
 # PP-Backend
-| **API**                                                | **Описание**                         | **Текст запроса**        | **Текст ответа** |
-|--------------------------------------------------------|--------------------------------------|--------------------------|------------------|
-| `GET /api/Account/token?username=admin&password=admin` | Получение токена                     | Нет                      | `Token`          |
-| `POST /api/Account/new`                                | Создание пользователя                | `UserRegistrationModel`  | Нет              |
-| `GET /api/Account/info`                                | Получение информации о пользователе  | `Token`                  | `UserInfo`       |
-| `POST /api/Account/join_group/{groupId}`               | Добавление  пользователя в группу    | `Token`                  | Нет              |
-| `DELETE /api/Account/leave_group/{groupId}`            | Удаление пользователя из группы      | `Token`                  | Нет              |
-| `GET /api/Account/get_groups`                          | Получение id всех групп пользователя | `Token`                  | `List<int>`      |
-| `POST /api/Account/complete_test/{testId}`             | Завершить тест с testId              | `Token`,`List<string>`   | Нет              |
-| `POST /api/Account/add_test/{testId}`                  | Добавить пользователю тест           | `Token`                  | Нет              |
-| `DELETE /api/Account/delete_test/{testId}`             | Удалить тест у  пользователя         | `Token`                  | Нет              |
-| `POST /api/Test`                                       | Создание нового теста                | `TestRegistrationModel`  | Нет              |
-| `GET /api/Test/{id}`                                   | Получение теста по id                | Нет                      | `Test`           |
-| `GET /api/Test/questions/{id}`                         | Получение вопросов теста по id       | Нет                      | `List<Question>` |
-| `POST /api/Group`                                      | Создание новой группы                | `GroupRegistrationModel` | Нет              |
-| `GET /api/Group/{id}`                                  | Получение группы по id               | Нет                      | `Group`          |
-| `POST /api/Group/add_test/{groupId}/{testId}`          | Добавить группе тест                 | Нет                      | Нет              |
-| `DELETE /api/Group/delete_test/{groupId}/{testId}`     | Удалить тест у группы                | Нет                      | Нет              |
+| **API**                                                | **Описание**                         | **Текст запроса**                | **Текст ответа**    |
+|--------------------------------------------------------|--------------------------------------|----------------------------------|---------------------|
+| `GET /api/Account/token?username=admin&password=admin` | Получение токена                     | Нет                              | `Token`             |
+| `POST /api/Account/new`                                | Создание пользователя                | `UserRegistrationModel`          | Нет                 |
+| `GET /api/Account/info`                                | Получение информации о пользователе  | `Token`                          | `UserInfo`          |
+| `POST /api/Account/join_group/{groupId}`               | Добавление  пользователя в группу    | `Token`                          | Нет                 |
+| `DELETE /api/Account/leave_group/{groupId}`            | Удаление пользователя из группы      | `Token`                          | Нет                 |
+| `GET /api/Account/get_groups`                          | Получение id всех групп пользователя | `Token`                          | `List<int>`         |
+| `POST /api/Account/complete_test/{testId}`             | Завершить тест с testId              | `Token`,`List<string>`           | Нет                 |
+| `POST /api/Account/add_test/{testId}`                  | Добавить пользователю тест           | `Token`                          | Нет                 |
+| `DELETE /api/Account/delete_test/{testId}`             | Удалить тест у  пользователя         | `Token`                          | Нет                 |
+| `POST /api/Test`                                       | Создание нового теста                | `TestRegistrationModel`          | Нет                 |
+| `GET /api/Test/{id}`                                   | Получение теста по id                | Нет                              | `Test`              |
+| `GET /api/Test/questions/{id}`                         | Получение вопросов теста по id       | Нет                              | `List<Question>`    |
+| `POST /api/Group`                                      | Создание новой группы                | `Token`,`GroupRegistrationModel` | Id созданной группы |
+| `GET /api/Group/{id}`                                  | Получение группы по id               | Нет                              | `Group`             |
+| `POST /api/Group/add_test/{groupId}/{testId}`          | Добавить группе тест                 | Нет                              | Нет                 |
+| `DELETE /api/Group/delete_test/{groupId}/{testId}`     | Удалить тест у группы                | Нет                              | Нет                 |
 
 
 # `Token`
@@ -32,6 +32,8 @@
     "id": "userId",
     "name": "username",
     "password": "userpassword",
+    "role":"Teacher/Student",
+    "managedGroups": [],
     "avaibleTestsIdList": [
       "firstAvaibleTestId",
       "secondAvaibleTestId"

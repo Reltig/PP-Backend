@@ -25,6 +25,13 @@ public class User:IDatabaseModel
     [BsonElement("psw_hash")]
     public string Password { get; set; } = null!;
     
+    [BsonElement("role")]
+    [BsonRepresentation(BsonType.String)] 
+    public Role Role { get; set; }
+    
+    [BsonElement("managed_groups")]
+    public List<int> ManagedGroups { get; set; } = new();
+    
     [BsonElement("groups")]
     public List<int> Groups { get; set; } = new();
     
@@ -36,6 +43,7 @@ public class User:IDatabaseModel
     public Dictionary<int, float> ComplitedTests { get; set; } = new();
 
     public void AddTest(int testId) => AvaibleTestsIdList.Add(testId);
+    public void AddManagedGroups(int groupId) => ManagedGroups.Add(groupId);
 
     public void CompleteTest(int testId, float rating){
         if(!ComplitedTests.ContainsKey(testId))

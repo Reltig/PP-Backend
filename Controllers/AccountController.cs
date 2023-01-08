@@ -100,7 +100,8 @@ namespace PPBackend.Controllers
             {
                 Name = user.Name,
                 Groups = user.Groups,
-                ComplitedTests = user.ComplitedTests
+                ComplitedTests = user.ComplitedTests,
+                Role = user.Role.ToString()
             });
         }
         
@@ -176,7 +177,7 @@ namespace PPBackend.Controllers
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
                     new Claim("ID", user.Id.ToString()),
-                    // new Claim(ClaimsIdentity.DefaultRoleClaimType, user.) //TODO: добавить роли
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString()) //TODO: добавить роли
                 };
                 ClaimsIdentity claimsIdentity =
                     new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
