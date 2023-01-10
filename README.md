@@ -50,7 +50,8 @@
 ```json
 {
   "name": "username",
-  "password": "userpassword"
+  "password": "userpassword",
+  "role":"Teacher/Student"
 }
 ```
 

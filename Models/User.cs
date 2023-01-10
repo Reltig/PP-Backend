@@ -12,9 +12,10 @@ public class User:IDatabaseModel
     public User(){}
     public User(UserRegistrationModel urm)
     {
+        Id = new Random().Next();//TODO: переделать
         Name = urm.Name;
         Password = urm.Password;
-        Id = new Random().Next();//TODO: переделать
+        Role = urm.Role;
     }
     [BsonId]
     public int Id { get; set; }
@@ -66,4 +67,5 @@ public class UserRegistrationModel
     public string Name { get; set; } = null!;
     
     public string Password { get; set; } = null!;
+    public Role Role { get; set; }
 }

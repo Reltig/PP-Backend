@@ -36,7 +36,7 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
 
     public async Task<int> CreateAsync(GroupRegistrationModel grm)
     {
-        var id = new Random(new DateTime().Millisecond).Next(10000, 99999);
+        var id = new Random().Next(10000, 99999);
         await CreateAsync(new Group(id, grm));
         return id;
     }
