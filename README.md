@@ -65,6 +65,7 @@
   "complitedTests": {
     "testId": 0.5
   },
+  "managedGroups": [],
   "role":"Teacher/Student"
 }
 ```

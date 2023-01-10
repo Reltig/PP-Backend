@@ -101,6 +101,7 @@ namespace PPBackend.Controllers
                 Name = user.Name,
                 Groups = user.Groups,
                 ComplitedTests = user.ComplitedTests,
+                ManagedGroups = user.ManagedGroups,
                 Role = user.Role.ToString()
             });
         }
