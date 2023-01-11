@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using PPBackend.Models;
 using PPBackend.Services;
 
@@ -8,13 +10,22 @@ namespace PPBackend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UsersController : Controller
 {
     private readonly UsersService _userDbService;
 
     public UsersController(UsersService userDbService) =>
         _userDbService = userDbService;
 
+    [HttpGet]
+    [Route("info/{id}")]
+    public async Task<ActionResult> GetInfo([FromRoute] int id, [FromServices] UsersService usersService)
+    {
+        var user = await usersService.GetAsync(id);
+        if (user is null)
+            return NotFound();
+        return Json(user.GetInfo());
+    }
     // [HttpGet]
     // public async Task<List<User>> Get() =>
     //     await _userDbService.GetAsync();

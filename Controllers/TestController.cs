@@ -71,14 +71,22 @@ public class TestController : ControllerBase
     //     return NoContent();
     // }
     
-    [HttpPost()]
-    public async Task<IActionResult> CreateTest(TestRegistrationModel trm)
+    [HttpPost]
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> CreateTest([FromServices] UsersService usersService,TestRegistrationModel trm)
     {
-        await _testsService.CreateAsync(new Test(trm));
+        var test = new Test(trm);
+        await _testsService.CreateAsync(test);
+        
+        var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
+        var user = await usersService.GetAsync(id);
+        if (user is null)
+            return NotFound();
     
-        return CreatedAtAction(nameof(CreateTest), trm);
+        usersService.AddManagedTest(id, test);
+        return CreatedAtAction(nameof(CreateTest), test);
     }
-    
+
     [HttpGet("{id}/questions")]
     public async Task<ActionResult<Test>> GetQuestions(int id)
     {

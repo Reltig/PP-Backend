@@ -96,14 +96,7 @@ namespace PPBackend.Controllers
             var user = await usersService.GetAsync(id);
             if (user is null)
                 return NotFound();
-            return Json(new
-            {
-                Name = user.Name,
-                Groups = user.Groups,
-                ComplitedTests = user.ComplitedTests,
-                ManagedGroups = user.ManagedGroups,
-                Role = user.Role.ToString()
-            });
+            return Json(user.GetInfo());
         }
         
         [Authorize]

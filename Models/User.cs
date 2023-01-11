@@ -1,4 +1,6 @@
 ﻿using System.Security.Cryptography;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
@@ -33,6 +35,9 @@ public class User:IDatabaseModel
     [BsonElement("managed_groups")]
     public List<int> ManagedGroups { get; set; } = new();
     
+    [BsonElement("managed_test")]
+    public List<int> ManagedTests { get; set; } = new();
+    
     [BsonElement("groups")]
     public List<int> Groups { get; set; } = new();
     
@@ -60,6 +65,24 @@ public class User:IDatabaseModel
 
     public void AddToGroup(int groupId) => Groups.Add(groupId);
     public void DeleteFromGroup(int groupId) => Groups.Remove(groupId);
+
+    public object GetInfo() =>
+        new
+        {
+            Name = this.Name,
+            Groups = this.Groups,
+            ComplitedTests = this.ComplitedTests,
+            ManagedGroups = this.ManagedGroups,
+            AvaibleTestsIdList = this.AvaibleTestsIdList,
+            ManagedTests = this.ManagedTests,
+            Role = this.Role.ToString()
+        };
+
+    public void AddManagedTest(int testId)
+    {
+        if(!ManagedTests.Contains(testId))
+            ManagedTests.Add(testId);
+    }
 }
 
 public class UserRegistrationModel

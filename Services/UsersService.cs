@@ -67,4 +67,14 @@ public class UsersService: CRUDService<User, UserStorageSettings>
             user.AddManagedGroups(groupId);
             await UpdateAsync(userId, user);
         });
+
+    public async Task AddManagedTest(int userId, Test test)
+    {
+        await Task.Run(async () =>
+        {
+            var user = await GetAsync(userId);
+            user.AddManagedTest(test.Id);
+            await UpdateAsync(userId, user);
+        });
+    }
 }

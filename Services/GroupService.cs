@@ -44,7 +44,7 @@ public class GroupService : CRUDService<Group, GroupsStorageSettings>
     public async Task<bool> TryAddTest(int groupId, int testId) =>
         await Task.Run(async () =>
         {
-            var group = await GetAsync(testId);
+            var group = await GetAsync(groupId);
             if (group is null)
                 return false;
             group.AddTest(testId);

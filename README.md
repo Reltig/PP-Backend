@@ -17,6 +17,7 @@
 | `GET /api/Group/{id}`                                  | Получение группы по id               | Нет                              | `Group`             |
 | `POST /api/Group/add_test/{groupId}/{testId}`          | Добавить группе тест                 | Нет                              | Нет                 |
 | `DELETE /api/Group/delete_test/{groupId}/{testId}`     | Удалить тест у группы                | Нет                              | Нет                 |
+| `GET /api/User/info/{id}`                              | Получение информации о пользователе  | Нет                              | `UserInfo`          |
 
 
 # `Token`
@@ -51,7 +52,7 @@
 {
   "name": "username",
   "password": "userpassword",
-  "role":"Teacher/Student"
+  "role":0/1 (Teacher/Student)
 }
 ```
 
@@ -65,7 +66,9 @@
   "complitedTests": {
     "testId": 0.5
   },
+  "avaibleTestsIdList": [],
   "managedGroups": [],
+  "managedTests" : [],
   "role":"Teacher/Student"
 }
 ```

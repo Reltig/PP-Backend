@@ -9,6 +9,7 @@
       "PPBackend/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.11",
+          "Microsoft.EntityFrameworkCore": "6.0.10",
           "Microsoft.EntityFrameworkCore.InMemory": "6.0.10",
           "MongoDB.Bson": "2.18.0",
           "MongoDB.Driver": "2.18.0",
