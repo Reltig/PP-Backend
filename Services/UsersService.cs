@@ -88,4 +88,18 @@ public class UsersService: CRUDService<User, UserStorageSettings>
                     await UpdateAsync(userId, user);
                 }
             });
+
+    public async Task TryAddTestsToUsersAsync(IEnumerable<int> usersId, IEnumerable<int> groupTests)=>
+        await Task.Run(async () =>
+        {
+            foreach (var userId in usersId)
+            {
+                var user = await GetAsync(userId);
+                foreach (var testId in groupTests)
+                {
+                    user.AddTest(testId);
+                }
+                await UpdateAsync(userId, user);
+            }
+        });
 }

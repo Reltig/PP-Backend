@@ -55,6 +55,9 @@ namespace PPBackend.Controllers
             var id = int.Parse(User.FindAll("ID").FirstOrDefault()?.Value);
             var ok = await groupService.TryAddUserToGroupAsync(groupId, id) 
                      && await usersService.TryAddGroupToUserAsync(id, groupId);
+            var usersId =  (await groupService.GetAsync(groupId))?.Members;
+            var group = await groupService.GetAsync(groupId);
+            await usersService.TryAddTestsToUsersAsync(usersId, group.Tests);
             return ok ? Ok() : BadRequest();
         }
         
