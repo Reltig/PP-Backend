@@ -17,7 +17,7 @@
 | `GET /api/Group/{id}`                                  | Получение группы по id               | Нет                              | `Group`             |
 | `POST /api/Group/add_test/{groupId}/{testId}`          | Добавить группе тест                 | Нет                              | Нет                 |
 | `DELETE /api/Group/delete_test/{groupId}/{testId}`     | Удалить тест у группы                | Нет                              | Нет                 |
-| `GET /api/User/info/{id}`                              | Получение информации о пользователе  | Нет                              | `UserInfo`          |
+| `GET /api/Users/info/{id}`                             | Получение информации о пользователе  | Нет                              | `UserInfo`          |
 
 
 # `Token`
