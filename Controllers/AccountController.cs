@@ -33,7 +33,7 @@ namespace PPBackend.Controllers
                 audience: TokenService.AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(TokenService.AuthOptions.LIFETIME)),
+                expires: now.Add(TimeSpan.FromDays(TokenService.AuthOptions.LIFETIME)),
                 signingCredentials: new SigningCredentials(TokenService.AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);

@@ -48,23 +48,12 @@ public class User:IDatabaseModel
     [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
     public Dictionary<int, float> ComplitedTests { get; set; } = new();
 
-    public void AddTest(int testId) => AvaibleTestsIdList.Add(testId);
-    public void AddManagedGroups(int groupId) => ManagedGroups.Add(groupId);
-
     public void CompleteTest(int testId, float rating){
         if(!ComplitedTests.ContainsKey(testId))
             ComplitedTests.Add(testId, rating);
         if (rating > ComplitedTests[testId])
             ComplitedTests[testId] = rating;
     }
-
-    public void DeleteTest(int testId)
-    {
-        AvaibleTestsIdList.Remove(testId);
-    }
-
-    public void AddToGroup(int groupId) => Groups.Add(groupId);
-    public void DeleteFromGroup(int groupId) => Groups.Remove(groupId);
 
     public object GetInfo() =>
         new
@@ -83,6 +72,26 @@ public class User:IDatabaseModel
     {
         if(!ManagedTests.Contains(testId))
             ManagedTests.Add(testId);
+    }
+    
+    public void DeleteTest(int testId)=>AvaibleTestsIdList.Remove(testId);
+
+    public void AddToGroup(int groupId)
+    {
+        if(!Groups.Contains(groupId))
+            Groups.Add(groupId);
+    }
+    public void DeleteFromGroup(int groupId) => Groups.Remove(groupId);
+    
+    public void AddTest(int testId)
+    {
+        if(!AvaibleTestsIdList.Contains(testId))
+            AvaibleTestsIdList.Add(testId);
+    }
+    public void AddManagedGroups(int groupId)
+    {
+        if(!ManagedGroups.Contains(groupId))
+            ManagedGroups.Add(groupId);
     }
 }
 
