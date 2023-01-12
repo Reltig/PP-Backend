@@ -69,6 +69,7 @@ public class User:IDatabaseModel
     public object GetInfo() =>
         new
         {
+            Id = this.Id,
             Name = this.Name,
             Groups = this.Groups,
             ComplitedTests = this.ComplitedTests,

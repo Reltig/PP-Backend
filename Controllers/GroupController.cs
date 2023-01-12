@@ -107,10 +107,11 @@ public class GroupController : ControllerBase
     }
     
     [HttpPost("add_test/{groupId}/{testId}")]
-    public async Task<IActionResult> AddTest(int groupId,int testId)
+    public async Task<IActionResult> AddTest([FromServices] UsersService usersService, int groupId,int testId)
     {
         var result = await _groupService.TryAddTest(groupId,testId);
-        
+        var usersId =  (await _groupService.GetAsync(groupId))?.Members;
+        await usersService.TryAddTestToUsersAsync(usersId, testId);
         return result ? Ok() : BadRequest();
     }
     

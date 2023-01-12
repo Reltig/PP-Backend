@@ -59,6 +59,7 @@
 # `UserInfo`
 ```json
 {
+  "id": 110713,
   "name": "admin",
   "groups": [
     11111
