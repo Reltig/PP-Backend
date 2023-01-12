@@ -23,7 +23,7 @@ public class UsersController : Controller
     {
         var user = await usersService.GetAsync(id);
         if (user is null)
-            return NotFound();
+            return Ok();
         return Json(user.GetInfo());
     }
     // [HttpGet]
